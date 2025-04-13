@@ -1,0 +1,22 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: postgres
+    environment:
+      - 'POSTGRES_DB=hrbot'
+      - 'POSTGRES_PASSWORD=hrbot'
+      - 'POSTGRES_USER=hrbot'
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+  hrBotBackend:
+    container_name: hrBotBackend
+    build:
+      context: .
+      dockerfile: hr-bot-backend-application/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres

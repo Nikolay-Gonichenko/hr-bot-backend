@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /hr-bot
+
+spring:
+  application:
+    name: hrBot
+  jpa:
+    database: postgresql
+    properties:
+      hibernate:
+        default_schema: hrbot
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    password: hrbot
+    username: hrbot
+    url: jdbc:postgresql://localhost:5433/hrbot
+    driver-class-name: org.postgresql.Driver
+
+#OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  packages-to-scan: ru.itmo.hrbotbackend.rest.controller

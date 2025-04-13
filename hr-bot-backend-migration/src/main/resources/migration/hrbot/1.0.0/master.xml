@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="create-position_seq-sequence" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="position_seq"/>
+			</not>
+		</preConditions>
+		<createSequence incrementBy="1" sequenceName="position_seq" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-position-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="position"/>
+			</not>
+		</preConditions>
+		<createTable tableName="position">
+			<column name="id" type="bigint" defaultValueSequenceNext="position_seq">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_position"/>
+			</column>
+			<column name="name" type="text">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-role-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="role"/>
+			</not>
+		</preConditions>
+		<createTable tableName="role">
+			<column name="id" type="smallint">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_role"/>
+			</column>
+			<column name="name" type="text">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-user_seq-sequence" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="user_seq"/>
+			</not>
+		</preConditions>
+		<createSequence incrementBy="1" sequenceName="user_seq" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-user-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="user"/>
+			</not>
+		</preConditions>
+		<createTable tableName="user">
+			<column name="id" type="bigint" defaultValueSequenceNext="user_seq">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_user"/>
+			</column>
+			<column name="tg_id" type="text">
+				<constraints nullable="false"/>
+			</column>
+			<column name="full_name" type="text">
+				<constraints nullable="false"/>
+			</column>
+			<column name="position_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="role_id" type="smallint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="is_archived" type="boolean">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="position_id"
+								 baseTableName="user"
+								 constraintName="fk_user_position"
+								 referencedColumnNames="id"
+								 referencedTableName="position"/>
+		<addForeignKeyConstraint baseColumnNames="role_id"
+								 baseTableName="user"
+								 constraintName="fk_user_role"
+								 referencedColumnNames="id"
+								 referencedTableName="role"/>
+	</changeSet>
+
+	<changeSet id="create-theme_seq-sequence" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="theme_seq"/>
+			</not>
+		</preConditions>
+		<createSequence incrementBy="1" sequenceName="theme_seq" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-theme-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="theme"/>
+			</not>
+		</preConditions>
+		<createTable tableName="theme">
+			<column name="id" type="bigint" defaultValueSequenceNext="theme_seq">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_theme"/>
+			</column>
+			<column name="theme_name" type="text">
+				<constraints nullable="false"/>
+			</column>
+			<column name="parent_id" type="bigint"/>
+			<column name="description" type="text"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="parent_id"
+								 baseTableName="theme"
+								 constraintName="fk_theme_parent_id"
+								 referencedColumnNames="id"
+								 referencedTableName="theme"/>
+	</changeSet>
+
+	<changeSet id="create-instruction_type-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="instruction_type"/>
+			</not>
+		</preConditions>
+		<createTable tableName="instruction_type">
+			<column name="id" type="smallint">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_instruction_type"/>
+			</column>
+			<column name="name" type="text">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-instruction_seq-sequence" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="instruction_seq"/>
+			</not>
+		</preConditions>
+		<createSequence incrementBy="1" sequenceName="instruction_seq" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-instruction-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="instruction"/>
+			</not>
+		</preConditions>
+		<createTable tableName="instruction">
+			<column name="id" type="bigint" defaultValueSequenceNext="instruction_seq">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_instruction"/>
+			</column>
+			<column name="theme_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="content" type="bytea">
+				<constraints nullable="false"/>
+			</column>
+			<column name="author_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="type_id" type="smallint">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="theme_id"
+								 baseTableName="instruction"
+								 constraintName="fk_instruction_theme"
+								 referencedColumnNames="id"
+								 referencedTableName="theme"/>
+		<addForeignKeyConstraint baseColumnNames="author_id"
+								 baseTableName="instruction"
+								 constraintName="fk_instruction_user"
+								 referencedColumnNames="id"
+								 referencedTableName="user"/>
+		<addForeignKeyConstraint baseColumnNames="type_id"
+								 baseTableName="instruction"
+								 constraintName="fk_instruction_instruction_type"
+								 referencedColumnNames="id"
+								 referencedTableName="instruction_type"/>
+	</changeSet>
+
+	<changeSet id="insert-role-values" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM role
+				WHERE id IN (1, 2);
+			</sqlCheck>
+		</preConditions>
+
+		<insert tableName="role">
+			<column name="id" value="1"/>
+			<column name="name" value="ADMIN"/>
+		</insert>
+		<insert tableName="role">
+			<column name="id" value="2"/>
+			<column name="name" value="USER"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="insert-instruction_type-values" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM instruction_type
+				WHERE id IN (1, 2);
+			</sqlCheck>
+		</preConditions>
+
+		<insert tableName="instruction_type">
+			<column name="id" value="1"/>
+			<column name="name" value="PHOTO"/>
+		</insert>
+		<insert tableName="instruction_type">
+			<column name="id" value="2"/>
+			<column name="name" value="VIDEO"/>
+		</insert>
+	</changeSet>
+</databaseChangeLog>

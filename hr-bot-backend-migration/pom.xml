@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>ru.itmo</groupId>
+		<artifactId>hr-bot-backend</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>hr-bot-backend-migration</artifactId>
+	<description>Модуль миграции БД</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+	</dependencies>
+	<profiles>
+		<profile>
+			<id>migrate-hr-bot</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<version>${liquibase-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>migrate-hr-bot</id>
+								<configuration>
+									<propertyFile>migration/hrbot/liquibase.properties
+									</propertyFile>
+								</configuration>
+							</execution>
+						</executions>
+						<configuration>
+							<driver>org.postgresql.Driver</driver>
+							<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+							<url>${db.url}</url>
+							<username>${db.login}</username>
+							<password>${db.password}</password>
+							<verbose>true</verbose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>
