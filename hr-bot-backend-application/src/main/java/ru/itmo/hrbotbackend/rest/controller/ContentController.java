@@ -1,6 +1,7 @@
 package ru.itmo.hrbotbackend.rest.controller;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import ru.itmo.hrbotbackend.service.facade.ContentService;
 /**
  * Контроллер контента.
  */
+@Tag(name = "Контроллер контента")
 @RestController
 @RequestMapping("content")
 @RequiredArgsConstructor
@@ -23,9 +25,10 @@ public class ContentController {
 
 	private final ContentService contentService;
 
-	@GetMapping
-	public ResponseEntity<Content> get(@RequestParam("themeId") Long themeId) {
-		return ResponseEntity.ok(contentService.getByThemeId(themeId));
+	@GetMapping("/get")
+	public ResponseEntity<Content> get(@RequestParam("themeId") Long themeId,
+									   @RequestParam("tgId") String userId) {
+		return ResponseEntity.ok(contentService.getByThemeId(themeId, userId));
 	}
 
 	@PostMapping("/addInstructionToTheme")

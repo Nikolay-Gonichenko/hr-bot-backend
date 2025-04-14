@@ -1,5 +1,6 @@
 package ru.itmo.hrbotbackend.rest.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,9 @@ import ru.itmo.hrbotbackend.domain.dto.input.UpdateThemeDto;
 import ru.itmo.hrbotbackend.service.theme.ThemeService;
 
 /**
- * 
+ * Контроллер для работы с темами и подтемами.
  */
+@Tag(name = "Контроллер для работы с темами и подтемами.")
 @RestController
 @RequestMapping("theme")
 @RequiredArgsConstructor

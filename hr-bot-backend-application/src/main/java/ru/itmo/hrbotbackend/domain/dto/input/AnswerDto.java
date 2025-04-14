@@ -12,10 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThemeCreateDto {
+public class AnswerDto {
 
-	private String themeName;
-	private String description;
-	private Long parentId;
-	private Integer accessLevel;
+	private Long questionId;
+	private String answer;
+	private String responderId;
 }

@@ -1,6 +1,8 @@
 package ru.itmo.hrbotbackend.service.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itmo.hrbotbackend.domain.dto.input.UserBlockDto;
@@ -71,5 +73,12 @@ public class UserServiceImpl implements UserService {
 		user.setArchived(userBlockDto.getArchived());
 		userRepository.save(user);
 		return true;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return this.getByTgId(username)
+				.orElseThrow(() -> new UsernameNotFoundException("No user with nickname = " + username));
+
 	}
 }

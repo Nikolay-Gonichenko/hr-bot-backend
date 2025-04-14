@@ -38,6 +38,7 @@ public class ThemeServiceImpl implements ThemeService {
 				.themeName(createDto.getThemeName())
 				.description(createDto.getDescription())
 				.parent(parent)
+				.accessLevel(createDto.getAccessLevel())
 				.build();
 		var saved = repository.save(theme);
 		return saved.getId();
@@ -47,12 +48,14 @@ public class ThemeServiceImpl implements ThemeService {
 	public boolean updateTheme(UpdateThemeDto updateThemeDto) {
 		var entity = this.getById(updateThemeDto.getId());
 		var parentId = updateThemeDto.getParentId();
-		if (!entity.getParent().getId().equals(parentId)) {
+		var parentEntity = entity.getParent();
+		if (parentEntity != null && !entity.getParent().getId().equals(parentId)) {
 			var newParent = this.getById(parentId);
 			entity.setParent(newParent);
 		}
 		entity.setThemeName(updateThemeDto.getThemeName());
 		entity.setDescription(updateThemeDto.getDescription());
+		entity.setAccessLevel(updateThemeDto.getAccessLevel());
 		repository.save(entity);
 		return true;
 	}

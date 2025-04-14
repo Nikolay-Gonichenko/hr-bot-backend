@@ -47,6 +47,9 @@ public class Theme {
 	@Column(name = "description")
 	private String description;
 
+	@Column(name = "access_level", nullable = false)
+	private Integer accessLevel;
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id")
 	private List<Theme> children;

@@ -1,4 +1,4 @@
-package ru.itmo.hrbotbackend.domain.dto.input;
+package ru.itmo.hrbotbackend.domain.dto.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateThemeDto {
+public class QuestionForAnswerDto {
 
 	private Long id;
-	private String themeName;
-	private String description;
-	private Long parentId;
-	private Integer accessLevel;
+	private String question;
 }

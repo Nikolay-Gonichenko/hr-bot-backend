@@ -15,8 +15,10 @@ public enum ExceptionCode {
 	USER_NOT_FOUND_BY_TG_ID("D003", "Пользователь не найден по ТГ ИД: %s"),
 	THEME_NOT_FOUND("D004", "Тема не найдена по ИД: %s"),
 	INSTRUCTION_TYPE_NOT_FOUND("D005", "Тип вложения не найден по ИД: %s"),
+	USER_QUESTION_NOT_FOUND_BY_ID("D006", "Вопрос не найден по ИД: %s"),
 
 	USER_IS_ARCHIVED("U001", "Пользователь с ИД: %s заблокирован в системе"),
+	NOT_ALLOWED_THEME("U002", "Вам недоступна данная тема для просмотра."),
 
 	THEME_IS_NOT_LEAF("T001", "Тема с названием \"%s\" не является листом. Создание" +
 			" вложений невозможно.");

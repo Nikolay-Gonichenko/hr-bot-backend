@@ -24,4 +24,7 @@ public class Role {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+
+	@Column(name = "access_level", nullable = false)
+	private Integer accessLevel;
 }

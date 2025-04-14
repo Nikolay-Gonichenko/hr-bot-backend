@@ -1,5 +1,6 @@
 package ru.itmo.hrbotbackend.rest.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,9 @@ import ru.itmo.hrbotbackend.domain.dto.input.UserCreateDto;
 import ru.itmo.hrbotbackend.service.user.UserService;
 
 /**
- * 
+ * Контроллер для работы с пользователями.
  */
+@Tag(name = "Контроллер для работы с пользователями.")
 @RestController
 @RequestMapping("user")
 @RequiredArgsConstructor

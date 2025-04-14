@@ -1,5 +1,6 @@
 package ru.itmo.hrbotbackend.rest.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Контроллер для работы с должностями.
  */
+@Tag(name = "Контроллер для работы с должностями")
 @RestController
 @RequestMapping("position")
 @RequiredArgsConstructor

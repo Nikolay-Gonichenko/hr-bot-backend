@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,35 +15,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Вложение.
+ *
  */
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "instruction")
-public class Instruction {
+@Table(name = "user_question")
+public class UserQuestion {
 
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructionSeq")
-	@SequenceGenerator(sequenceName = "instruction_seq", name = "instructionSeq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userQuestionSeq")
+	@SequenceGenerator(sequenceName = "user_question_seq", name = "userQuestionSeq", allocationSize = 1)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "theme_id", nullable = false)
-	private Theme theme;
+	@Column(name = "question", nullable = false)
+	private String question;
 
-	@Column(name = "content", nullable = false)
-	private byte[] content;
+	@Column(name = "answer")
+	private String answer;
 
 	@ManyToOne
 	@JoinColumn(name = "author_id", nullable = false)
 	private User author;
 
 	@ManyToOne
-	@JoinColumn(name = "type_id", nullable = false)
-	private InstructionType instructionType;
-
+	@JoinColumn(name = "responder_id")
+	private User responder;
 }

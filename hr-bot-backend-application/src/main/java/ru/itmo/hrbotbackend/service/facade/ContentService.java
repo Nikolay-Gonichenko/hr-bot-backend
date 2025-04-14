@@ -8,7 +8,7 @@ import ru.itmo.hrbotbackend.domain.dto.output.Content;
  */
 public interface ContentService {
 	
-	Content getByThemeId(Long themeId);
+	Content getByThemeId(Long themeId, String userId);
 
 	Boolean addInstructionsToTheme(AddInstructionsToThemeDto dto);
 }

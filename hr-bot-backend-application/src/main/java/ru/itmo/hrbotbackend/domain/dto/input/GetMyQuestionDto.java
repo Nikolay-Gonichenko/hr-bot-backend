@@ -12,10 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThemeCreateDto {
+public class GetMyQuestionDto {
 
-	private String themeName;
-	private String description;
-	private Long parentId;
-	private Integer accessLevel;
+	private String tgId;
+	private Boolean answered;
 }

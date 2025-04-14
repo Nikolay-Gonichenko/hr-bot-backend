@@ -46,6 +46,9 @@
 			<column name="name" type="text">
 				<constraints nullable="false"/>
 			</column>
+			<column name="access_level" type="int">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 	</changeSet>
 
@@ -124,6 +127,9 @@
 			</column>
 			<column name="parent_id" type="bigint"/>
 			<column name="description" type="text"/>
+			<column name="access_level" type="int" defaultValue="0">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="parent_id"
 								 baseTableName="theme"
@@ -206,17 +212,24 @@
 			<sqlCheck expectedResult="0">
 				SELECT count(*)
 				FROM role
-				WHERE id IN (1, 2);
+				WHERE id IN (1, 2, 3);
 			</sqlCheck>
 		</preConditions>
 
 		<insert tableName="role">
 			<column name="id" value="1"/>
-			<column name="name" value="ADMIN"/>
+			<column name="name" value="ROLE_ADMIN"/>
+			<column name="access_level" value="1"/>
 		</insert>
 		<insert tableName="role">
 			<column name="id" value="2"/>
-			<column name="name" value="USER"/>
+			<column name="name" value="ROLE_USER_NDA"/>
+			<column name="access_level" value="1"/>
+		</insert>
+		<insert tableName="role">
+			<column name="id" value="3"/>
+			<column name="name" value="ROLE_USER_NOT_NDA"/>
+			<column name="access_level" value="0"/>
 		</insert>
 	</changeSet>
 
@@ -237,5 +250,47 @@
 			<column name="id" value="2"/>
 			<column name="name" value="VIDEO"/>
 		</insert>
+	</changeSet>
+
+	<changeSet id="create-user_question_seq-sequence" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="user_question_seq"/>
+			</not>
+		</preConditions>
+		<createSequence incrementBy="1" sequenceName="user_question_seq" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-user_question-table" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="user_question"/>
+			</not>
+		</preConditions>
+		<createTable tableName="user_question">
+			<column name="id" type="bigint" defaultValueSequenceNext="user_question_seq">
+				<constraints nullable="false"
+							 primaryKey="true"
+							 primaryKeyName="pk_user_question"/>
+			</column>
+			<column name="author_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="question" type="text">
+				<constraints nullable="false"/>
+			</column>
+			<column name="answer" type="text"/>
+			<column name="responder_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="responder_id"
+								 baseTableName="user_question"
+								 constraintName="fk_user_question_responder"
+								 referencedColumnNames="id"
+								 referencedTableName="user"/>
+		<addForeignKeyConstraint baseColumnNames="author_id"
+								 baseTableName="user_question"
+								 constraintName="fk_user_question_author"
+								 referencedColumnNames="id"
+								 referencedTableName="user"/>
 	</changeSet>
 </databaseChangeLog>
