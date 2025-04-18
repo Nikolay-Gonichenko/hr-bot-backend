@@ -26,7 +26,7 @@ public class ContentController {
 	private final ContentService contentService;
 
 	@GetMapping("/get")
-	public ResponseEntity<Content> get(@RequestParam("themeId") Long themeId,
+	public ResponseEntity<Content> get(@RequestParam(value = "themeId", required = false) Long themeId,
 									   @RequestParam("tgId") String userId) {
 		return ResponseEntity.ok(contentService.getByThemeId(themeId, userId));
 	}

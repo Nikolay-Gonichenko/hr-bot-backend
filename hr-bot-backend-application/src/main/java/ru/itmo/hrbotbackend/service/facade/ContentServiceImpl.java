@@ -29,16 +29,16 @@ public class ContentServiceImpl implements ContentService {
 	@Transactional
 	public Content getByThemeId(Long themeId, String userId) {
 		var content = Content.builder();
-		var theme = themeService.getById(themeId);
 		var children = themeService.getByParentId(themeId);
 		var user = userService.getByTgId(userId)
 				.orElseThrow(() -> new BaseException(ExceptionCode.USER_NOT_FOUND_BY_TG_ID, userId));
 		if (children.isEmpty()) {
+			var theme = themeService.getById(themeId);
 			if (theme.getAccessLevel() > user.getRole().getAccessLevel()) {
 				throw new BaseException(ExceptionCode.NOT_ALLOWED_THEME);
 			}
 			content
-					.description(themeService.getDescriptionById(themeId))
+					.description(theme.getDescription())
 					.instructions(instructionService.getByThemeId(themeId))
 					.leaf(true);
 		} else {

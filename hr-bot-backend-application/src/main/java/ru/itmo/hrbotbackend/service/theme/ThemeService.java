@@ -22,7 +22,5 @@ public interface ThemeService {
 
 	boolean deleteByParentId(Long parentId);
 
-	String getDescriptionById(Long themeId);
-
 	Theme getById(Long id);
 }

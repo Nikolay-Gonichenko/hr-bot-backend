@@ -75,17 +75,17 @@ public class ThemeServiceImpl implements ThemeService {
 	}
 
 	@Override
-	public String getDescriptionById(Long themeId) {
-		return this.getById(themeId).getDescription();
-	}
-
-	@Override
 	public Theme getById(Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new BaseException(ExceptionCode.THEME_NOT_FOUND, id));
 	}
 
 	private List<Theme> findAllByParentId(Long parentId) {
-		return repository.findAllByParentId(parentId);
+		if (parentId != null) {
+			return repository.findAllByParentId(parentId);
+		} else {
+			return repository.findAllByParentIsNull();
+		}
+
 	}
 }
