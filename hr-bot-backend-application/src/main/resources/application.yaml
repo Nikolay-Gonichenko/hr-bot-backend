@@ -16,7 +16,7 @@ spring:
   datasource:
     password: hrbot
     username: hrbot
-    url: jdbc:postgresql://localhost:5433/hrbot
+    url: jdbc:postgresql://postgres:5432/hrbot
     driver-class-name: org.postgresql.Driver
 
 jwt:

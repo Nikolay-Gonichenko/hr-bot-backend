@@ -11,8 +11,8 @@ services:
       - "5433:5432"
     restart: unless-stopped
 
-  hrBotBackend:
-    container_name: hrBotBackend
+  hr-bot-backend:
+    container_name: hr-bot-backend
     build:
       context: .
       dockerfile: hr-bot-backend-application/Dockerfile
