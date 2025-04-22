@@ -33,6 +33,9 @@ public class ContentServiceImpl implements ContentService {
 		var user = userService.getByTgId(userId)
 				.orElseThrow(() -> new BaseException(ExceptionCode.USER_NOT_FOUND_BY_TG_ID, userId));
 		if (children.isEmpty()) {
+			if (themeId == null) {
+				throw new BaseException(ExceptionCode.THEME_NOT_FOUND, "null");
+			}
 			var theme = themeService.getById(themeId);
 			if (theme.getAccessLevel() > user.getRole().getAccessLevel()) {
 				throw new BaseException(ExceptionCode.NOT_ALLOWED_THEME);
