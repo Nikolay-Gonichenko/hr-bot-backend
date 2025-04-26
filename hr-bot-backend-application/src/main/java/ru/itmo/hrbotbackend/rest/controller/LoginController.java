@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.itmo.hrbotbackend.domain.dto.output.LoginDto;
 import ru.itmo.hrbotbackend.service.facade.LoginService;
 
 /**
@@ -22,7 +23,7 @@ public class LoginController {
 	private final LoginService loginService;
 
 	@PostMapping
-	public ResponseEntity<String> login(@RequestBody @NotNull String tgId) {
+	public ResponseEntity<LoginDto> login(@RequestBody @NotNull String tgId) {
 		return ResponseEntity.ok(loginService.login(tgId));
 	}
 }

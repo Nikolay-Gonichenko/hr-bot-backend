@@ -293,4 +293,21 @@
 								 referencedColumnNames="id"
 								 referencedTableName="user"/>
 	</changeSet>
+
+	<changeSet id="insert-theme-faq" author="hrbot">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				SELECT count(*)
+				FROM theme
+				where theme_name = 'FAQ';
+			</sqlCheck>
+		</preConditions>
+
+		<insert tableName="theme">
+			<column name="theme_name" value="FAQ"/>
+			<column name="parent_id" value="null"/>
+			<column name="description" value="Часто задаваемые вопросы"/>
+			<column name="access_level" value="0"/>
+		</insert>
+	</changeSet>
 </databaseChangeLog>
