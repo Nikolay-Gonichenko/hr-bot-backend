@@ -77,8 +77,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return this.getByTgId(username)
+		var user = this.getByTgId(username)
 				.orElseThrow(() -> new UsernameNotFoundException("No user with nickname = " + username));
+		if (user.getArchived()) {
+			throw new UsernameNotFoundException("USER with ID: " + username + " is blocked in system.");
+		}
+		return user;
 
 	}
 }

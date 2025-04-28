@@ -17,7 +17,7 @@ public interface UserQuestionService {
 
 	List<UserQuestionOutDto> getAllMy(GetMyQuestionDto getMyQuestionDto);
 
-	List<QuestionForAnswerDto> getQuestionForAnswer();
+	List<QuestionForAnswerDto> getQuestionForAnswer(String adminId);
 
 	 boolean answer(AnswerDto answerDto);
 }

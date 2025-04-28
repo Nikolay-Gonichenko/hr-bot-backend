@@ -63,9 +63,11 @@ public class UserQuestionServiceImpl implements UserQuestionService {
 	}
 
 	@Override
-	public List<QuestionForAnswerDto> getQuestionForAnswer() {
+	public List<QuestionForAnswerDto> getQuestionForAnswer(String adminId) {
+		var admin = this.getUserByTgId(adminId);
 		return userQuestionRepository.findAllByAnswerIsNull()
 				.stream()
+				.filter(userQuestion -> !userQuestion.getAuthor().equals(admin))
 				.map(userQuestion -> QuestionForAnswerDto
 						.builder()
 						.id(userQuestion.getId())

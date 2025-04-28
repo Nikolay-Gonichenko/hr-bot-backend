@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +33,9 @@ public class UserQuestionController {
 		return ResponseEntity.ok(userQuestionService.create(createDto));
 	}
 
-	@GetMapping("/getForAnswer")
-	public ResponseEntity<List<QuestionForAnswerDto>> getForAnswer() {
-		return ResponseEntity.ok(userQuestionService.getQuestionForAnswer());
+	@PostMapping("/getForAnswer")
+	public ResponseEntity<List<QuestionForAnswerDto>> getForAnswer(@RequestBody @NotNull String adminId) {
+		return ResponseEntity.ok(userQuestionService.getQuestionForAnswer(adminId));
 	}
 
 	@PostMapping("/getAllMy")

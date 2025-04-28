@@ -20,7 +20,7 @@ public class JwtTokenUtil {
 	private String jwtSecret;
 
 	public String generateAccessToken(String login) {
-		Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		var date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return Jwts.builder()
 				.setSubject(login)
 				.setExpiration(date)

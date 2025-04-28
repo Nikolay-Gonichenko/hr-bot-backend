@@ -32,7 +32,6 @@ public class SecurityConfig {
 					"/faq/getAllMy"
 			},
 			"ADMIN", new String[]{
-					"/content/get",
 					"/content/addInstructionToTheme",
 					"/position/getAll",
 					"/position/create",
@@ -44,10 +43,13 @@ public class SecurityConfig {
 					"/theme/deleteByParentId",
 					"/user/createOrUpdate",
 					"/user/block",
-					"/faq/create",
-					"/faq/getAllMy",
 					"/faq/getForAnswer",
 					"/faq/answer"
+			},
+			"COMMON", new String[] {
+					"/content/get",
+					"/faq/create",
+					"/faq/getAllMy"
 			}
 	);
 
@@ -59,8 +61,7 @@ public class SecurityConfig {
 		return http
 				.authorizeRequests()
 				.requestMatchers(patternMap.get("ADMIN")).hasRole("ADMIN")
-				.requestMatchers(patternMap.get("USER_NDA")).hasRole("USER_NDA")
-				.requestMatchers(patternMap.get("USER_NOT_NDA")).hasRole("USER_NOT_NDA")
+				.requestMatchers(patternMap.get("COMMON")).hasAnyRole("USER_NDA", "ADMIN", "USER_NOT_NDA")
 				.requestMatchers("/login").permitAll()
 				.and()
 				.csrf(AbstractHttpConfigurer::disable)
